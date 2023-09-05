@@ -10,8 +10,7 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id])
-    @blog = Blog.find(nil) if @blog.secret && current_user != @blog.user
+    @blog = Blog.visible_user(current_user).find(params[:id])
   end
 
   def new
