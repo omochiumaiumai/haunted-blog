@@ -9,11 +9,7 @@ class Blog < ApplicationRecord
 
   scope :published, -> { where('secret = FALSE') }
   scope :visible_user, lambda { |user|
-    if user.present?
-      where('secret = ? OR user_id = ?', false, user.id)
-    else
-      where(secret: false)
-    end
+    where('secret = ? OR user_id = ?', false, user&.id)
   }
   scope :search, lambda { |term|
     keyword = "%#{sanitize_sql(term)}%"
