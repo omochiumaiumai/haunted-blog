@@ -13,7 +13,7 @@ class Blog < ApplicationRecord
   }
   scope :search, lambda { |term|
     keyword = "%#{sanitize_sql(term)}%"
-    where('title LIKE :search_term OR content LIKE :search_term', search_term: keyword)
+    where('title LIKE :keyword OR content LIKE :keyword', keyword:)
   }
 
   scope :default_order, -> { order(id: :desc) }
